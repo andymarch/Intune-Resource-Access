@@ -23,7 +23,9 @@
 
 package com.microsoft.intune.scepvalidation;
 
+import java.net.InetSocketAddress;
 import java.net.MalformedURLException;
+import java.net.Proxy;
 import java.util.Properties;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
@@ -77,6 +79,11 @@ public class ADALClientWrapper
         try 
         {
             context = new AuthenticationContext(this.authority + aadTenant, false, service);
+            if(props.getProperty("PROXY_HOST") != null && props.getProperty("PROXY_PORT") != null){
+                context.setProxy(new Proxy(Proxy.Type.HTTP,
+                        new InetSocketAddress(props.getProperty("PROXY_HOST")
+                                ,Integer.parseInt(props.getProperty("PROXY_PORT")))));
+            }
         }
         catch(MalformedURLException e)
         {
