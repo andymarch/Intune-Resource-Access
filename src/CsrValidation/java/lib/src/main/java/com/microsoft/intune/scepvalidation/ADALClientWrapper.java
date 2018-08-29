@@ -79,7 +79,7 @@ public class ADALClientWrapper
         try 
         {
             context = new AuthenticationContext(this.authority + aadTenant, false, service);
-            if(props.getProperty("PROXY_HOST") != null && props.getProperty("PROXY_PORT") != null){
+            if(props != null && props.getProperty("PROXY_HOST") != null && props.getProperty("PROXY_PORT") != null){
                 context.setProxy(new Proxy(Proxy.Type.HTTP,
                         new InetSocketAddress(props.getProperty("PROXY_HOST")
                                 ,Integer.parseInt(props.getProperty("PROXY_PORT")))));
